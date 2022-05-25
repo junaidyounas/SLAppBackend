@@ -20,7 +20,7 @@ export class AuthController {
     async loginUser(
         @Body()
         loginUserDto: LoginUserDto
-    ): Promise<User>{
+    ): Promise<{_id: string}>{
         return this.authService.login(loginUserDto);
     }
 }

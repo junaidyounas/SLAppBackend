@@ -27,7 +27,6 @@ export class AuthService {
         email,
         password: hashedPass,
       });
-      console.log(user);
       return user;
     } catch (error) {
       if (error.code === 11000) {

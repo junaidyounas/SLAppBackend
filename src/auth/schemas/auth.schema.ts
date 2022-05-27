@@ -6,15 +6,21 @@ import { Document } from 'mongoose';
 export class User extends Document {
   @Prop()
   name: string;
-  
+
   @Prop()
   phone: string;
 
-  @Prop({unique: [true, 'Email already exists']})
+  @Prop({ unique: [true, 'Email already exists'] })
   email: string;
 
-  @Prop({ select: false})
+  @Prop({ select: false })
   password: string;
+
+  @Prop()
+  resetOtp: number;
+
+  @Prop({type: Date})
+  resetOtpCreatedAt: string;
 
 }
 

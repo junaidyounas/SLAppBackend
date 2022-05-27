@@ -1,7 +1,15 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { DocumentBuilder, SwaggerCustomOptions, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+
+// Custom Swagger Options =>
+const customOptions: SwaggerCustomOptions = {
+  swaggerOptions: {
+    persistAuthorization: true,
+  },
+  customSiteTitle: 'My API Docs',
+};
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -10,10 +18,10 @@ async function bootstrap() {
     .setTitle('SL App')
     .setDescription('The sl API description')
     .setVersion('0.0.1')
-    .addTag('auth')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('swagger', app, document);
+  SwaggerModule.setup('swagger', app, document, customOptions);
 
   app.useGlobalPipes(new ValidationPipe());
   await app.listen(3000);

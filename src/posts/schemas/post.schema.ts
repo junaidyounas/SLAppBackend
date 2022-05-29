@@ -1,10 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import mongoose, { Document } from 'mongoose';
+import { User } from 'src/auth/schemas/auth.schema';
 import { CONDITION } from 'src/types/Condition.type';
 
 
 @Schema()
-export class Post extends Document {
+export class Post {
   @Prop()
   title: string;
 
@@ -20,8 +21,17 @@ export class Post extends Document {
   @Prop()
   category: string;
 
-  @Prop({ default: CONDITION.USED, type: String })
+  @Prop({ default: CONDITION.NEW, type: String })
   condition: CONDITION;
+
+  @Prop({ default: true, type: String })
+  isVisible: boolean;
+
+  @Prop({ default: false, type: String })
+  isActive: boolean;
+
+  @Prop({type: mongoose.Schema.Types.ObjectId, ref: 'User'})
+  user: User
 
 }
 

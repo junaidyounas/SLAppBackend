@@ -18,7 +18,16 @@ async function bootstrap() {
     .setTitle('SL App')
     .setDescription('The sl API description')
     .setVersion('0.0.1')
-    .addBearerAuth()
+    .addBearerAuth(
+          {
+            type: 'http',
+            scheme: 'bearer',
+            bearerFormat: 'JWT',
+            name: 'JWT',
+            description: 'Enter JWT token',
+            in: 'header',
+          },
+          'jwt')
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('swagger', app, document, customOptions);

@@ -7,6 +7,7 @@ import { LoginUserDto } from './dtos/login-user.dto';
 import { SignUpUserDto } from './dtos/signup-user.dto';
 import { User } from './schemas/auth.schema';
 import { ResetPassDto } from './dtos/reset-password.dto';
+import { VerifyOtpDto } from './dtos/verify-otp.dto';
 
 
 
@@ -51,5 +52,15 @@ export class AuthController {
     resetPassDto: ResetPassDto,
   ): Promise<any> {
     return this.authService.resetPassword(resetPassDto);
+  }
+
+  @Post('/verify-otp')
+  @ApiCreatedResponse({ description: 'Data' })
+  @ApiBody({ type: VerifyOtpDto })
+  async verifyOtp(
+    @Body()
+    verifyOtpDto: VerifyOtpDto,
+  ): Promise<any> {
+    return this.authService.verifyOtp(verifyOtpDto);
   }
 }

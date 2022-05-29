@@ -15,6 +15,7 @@ import { LoginUserDto } from './dtos/login-user.dto';
 import { ResetPassDto } from './dtos/reset-password.dto';
 import { SignUpUserDto } from './dtos/signup-user.dto';
 import { User } from './schemas/auth.schema';
+import { VerifyOtpDto } from './dtos/verify-otp.dto';
 
 @Injectable()
 export class AuthService {
@@ -91,10 +92,29 @@ export class AuthService {
     return changedUser;
   }
 
+  async verifyOtp(verifyOtpDto: VerifyOtpDto){
+    const { otp, email } = verifyOtpDto;
+     const user = await this.userModal
+       .findOne({ email: email })
+       .select('+resetOtp')
+       .select('+resetOtpCreatedAt');
+     if (!user) {
+       throw new BadRequestException('User not Found');
+     }
+      if (Number(otp) === Number(user.resetOtp)) {
+        return {message: 'Successfully verified OTP.'}
+      } else {
+        throw new BadRequestException('Wrong otp entered');
+      }
+  }
+
   // Reset Password ==> /auth/resetPassword
   async resetPassword(resetPassDto: ResetPassDto) {
     const { email, password, otp } = resetPassDto;
-    const user = await this.userModal.findOne({ email: email });
+    const user = await this.userModal
+      .findOne({ email: email })
+      .select('+resetOtp')
+      .select('+resetOtpCreatedAt');;
     if (!user) {
       throw new BadRequestException('User not Found');
     }

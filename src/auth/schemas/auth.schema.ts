@@ -16,12 +16,11 @@ export class User extends Document {
   @Prop({ select: false })
   password: string;
 
-  @Prop()
+  @Prop({ select: false })
   resetOtp: number;
 
-  @Prop({type: Date})
+  @Prop({ type: Date, select: false })
   resetOtpCreatedAt: string;
-
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

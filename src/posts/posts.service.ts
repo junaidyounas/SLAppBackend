@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { Query } from 'express-serve-static-core';
 import { Model } from 'mongoose';
 import { User } from 'src/auth/schemas/auth.schema';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -21,8 +22,23 @@ export class PostsService {
     return post;
   }
 
-  async findAll() {
-    return await this.postModel.find();
+  async findAll(query: Query) {
+    const search = query.search ? {
+      title: {
+        $regex: query.search,
+        $options: 'i'
+      }
+    } : {}
+
+    // pagination
+    const resultPerPage = Number(process.env.POSTS_PER_PAGE);
+    const currentPage = Number(query.page) || 1;
+    const skip = resultPerPage * (currentPage - 1)
+
+    return await this.postModel
+    .find({ ...search })
+    .limit(resultPerPage)
+    .skip(skip);
   }
 
   // ====> /:_id

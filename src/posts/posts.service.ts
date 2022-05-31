@@ -43,7 +43,10 @@ export class PostsService {
 
   // ====> /:_id
   async findOne(id: string): Promise<Post> {
-    const post = await this.postModel.findById(id).populate('user');
+    const post = await this.postModel
+    .findById(id)
+    .populate('user')
+    .populate('category', ['title']);
     return post;
   }
 

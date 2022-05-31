@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
 import { User } from 'src/auth/schemas/auth.schema';
+import { Category } from 'src/categories/schema/category.schema';
 import { CONDITION } from 'src/types/Condition.type';
 
 
@@ -18,8 +19,11 @@ export class Post {
   @Prop()
   location: string;
 
+  @Prop({type: mongoose.Schema.Types.ObjectId, ref: 'Category'})
+  category: Category;
+
   @Prop()
-  category: string;
+  subCategory: string;
 
   @Prop({ default: CONDITION.NEW, type: String })
   condition: CONDITION;

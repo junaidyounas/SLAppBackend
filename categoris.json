@@ -1,0 +1,276 @@
+[
+    {
+        "title": "Mobiles",
+        "subCategories": [
+            {
+                "title": "Tablets"
+            },
+            {
+                "title": "Accessories",
+                "subCategories": [
+                    "Charging Cables",
+                    "Converters",
+                    "Chargers",
+                    "Screens",
+                    "Mobile Screen Protectors",
+                    "Mobile Stands",
+                    "Ring Lights",
+                    "Mobile Selfie Sticks",
+                    "Power Banks",
+                    "Headphones",
+                    "Earphones",
+                    "Covers",
+                    "Memory Cards",
+                    "Others"
+
+                ]
+            },
+            {
+                "title": "Mobile Phones"
+            },
+            {
+                "title": "Smart Watches"
+            }
+        ]
+
+    },
+    {
+        "title": "Vehicles",
+        "subCategories": [
+            {"title": "Cars"},
+            {"title": "Cars Accessories"},
+            {"title": "Spare Parts"},
+            {"title": "Buses"},
+            {"title": "Vans"},
+            {"title": "Trucks"},
+            {"title": "Rickshaw"},
+            {"title": "Chingchi"},
+            {"title": "Other Vehicles"},
+            {"title": "Boats"},
+            {"title": "Tractors"},
+            {"title": "Trailers"}
+        ]
+    },
+    {
+        "title": "For Sale Property",
+        "subCategories": [
+            {"title": "Land"},
+            {"title": "Plots"},
+            {"title": "Apartments or Flats"},
+            {"title": "Shops"},
+            {"title": "Offices"},
+            {"title": "Portions"},
+            {"title": "Floors"},
+            {"title": "Commercial Plaza"},
+            {"title": "Houses"}
+        ]
+
+    },
+    {
+        "title": "For Rent Property",
+        "subCategories": [
+            {"title": "Land"},
+            {"title": "Plots"},
+            {"title": "Apartments or Flats"},
+            {"title": "Shops"},
+            {"title": "Offices"},
+            {"title": "Portions"},
+            {"title": "Floors"},
+            {"title": "Commercial Plaza"},
+            {"title": "Rooms"},
+            {"title": "Guest Houses"},
+            {"title": "Vacation Rentals"},
+            {"title": "Roommates"},
+            {"title": "Paying Guests"}
+        ]
+
+    },
+    {
+        "title": "Electronics & Home Appliances",
+        "subCategories": [
+            {"title": "Computers"},
+            {"title": "Computer Accessories"},
+            {"title": "TV"},
+            {"title": "Audio"},
+            {"title": "Videos"},
+            {"title": "Games"},
+            {"title": "Entertainment"},
+            {"title": "UPS"},
+            {"title": "Generators"},
+            {"title": "Power Solutions"},
+            {"title": "AC"},
+            {"title": "Coolers"},
+            {"title": "Washing Machines"},
+            {"title": "Dryers"},
+            {"title": "Laptops"},
+            {"title": "Fridges"},
+            {"title": "Freezers"},
+            {"title": "Adapters"},
+            {"title": "LED"}
+        ]
+    },
+    {
+        "title": "Bikes",
+        "subCategories": [
+            {"title": "Bikes"},
+            {"title": "Tires"},
+            {"title": "Bicycles"},
+            {"title": "Spare Parts"},
+            {"title": "Scooty"},
+            {"title": "Scooters"},
+            {"title": "Heavy Bikes"}
+        ]
+    },
+    {
+        "title": "Bikes",
+        "subCategories": [
+            {"title": "Bikes"},
+            {"title": "Tires"},
+            {"title": "Bicycles"},
+            {"title": "Spare Parts"},
+            {"title": "Scooty"},
+            {"title": "Scooters"},
+            {"title": "Heavy Bikes"}
+            
+        ]
+    },
+    {
+        "title": "Agriculture & Business",
+        "subCategories": [
+            {"title": "Agricltures"},
+            {"title": "Restaurants"},
+            {"title": "Business for Sale"},
+            {"title": "Medical"},
+            {"title": "Pharma"},
+            {"title": "Others"}
+            
+        ]
+    },
+    {
+        "title": "Services",
+        "subCategories": [
+            {"title": "Education"},
+            {"title": "Travel"},
+            {"title": "Visa"},
+            {"title": "Rent a Car"},
+            {"title": "Drivers & Taxi"},
+            {"title": "Web Development"},
+            {"title": "Mobile Development"},
+            {"title": "Computer Repair"},
+            {"title": "Laptop Repair"},
+            {"title": "Health & Beauty"},
+            {"title": "Maids"},
+            {"title": "Packers"},
+            {"title": "Home Repair"},
+            {"title": "Office Repair"},
+            {"title": "Catering"},
+            {"title": "Restaurant"},
+            {"title": "Farm & Fresh Foods"},
+            {"title": "Event Services"},
+            {"title": "Other"}
+            
+        ]
+    },
+    {
+        "title": "Jobs",
+        "subCategories": [
+            {"title": "Online Jobs"},
+            {"title": "Marketing Jobs"},
+            {"title": "Advertising"},
+            {"title": "Education"},
+            {"title": "Customer Service"},
+            {"title": "Sales"},
+            {"title": "Information Technology"},
+            {"title": "Hotels"},
+            {"title": "Tourism Jobs"},
+            {"title": "Clerical"},
+            {"title": "Administration Jobs"},
+            {"title": "Human Resource Jobs"},
+            {"title": "Accounting Jobs"},
+            {"title": "Manufacturing"},
+            {"title": "Medical"},
+            {"title": "Part Time"},
+            {"title": "Other"},
+            {"title": "Software Houses"},
+            {"title": "Liborteris"}
+        ]
+    },
+    {
+        "title": "Animals",
+        "subCategories": [
+            {"title": "Fish"},
+            {"title": "Birds"},
+            {"title": "Hens"},
+            {"title": "Cats"},
+            {"title": "Dogs"},
+            {"title": "Sales"},
+            {"title": "Livestock"},
+            {"title": "Horses"},
+            {"title": "Pets"},
+            {"title": "Pets Foods"},
+            {"title": "Pets Accessories"},
+            {"title": "Other"}
+        ]
+    },
+    {
+        "title": "Furniture & Home Decor",
+        "subCategories": [
+            {"title": "Sofa"},
+            {"title": "Chairs"},
+            {"title": "Beds"},
+            {"title": "Home Decoration"},
+            {"title": "Tables"},
+            {"title": "Dining"},
+            {"title": "Garden"},
+            {"title": "Outdoor"},
+            {"title": "Painting"},
+            {"title": "Mirros"},
+            {"title": "Office Furniture"},
+            {"title": "Rugs"},
+            {"title": "Other"}
+        ]
+    },
+    {
+        "title": "Fashion & Beauty",
+        "subCategories": [
+            {"title": "Men Accessories"},
+            {"title": "Men Footwear"},
+            {"title": "Men Clothes"},
+            {"title": "Women Accessories"},
+            {"title": "Women Footwear"},
+            {"title": "Women Clothes"},
+            {"title": "Jewellery"},
+            {"title": "Mack Up"},
+            {"title": "Skin"},
+            {"title": "Hair"},
+            {"title": "Waches"},
+            {"title": "Wedding"},
+            {"title": "Other Fashion"},
+            {"title": "Other Furniture"}
+        ]
+    },
+    {
+        "title": "Books, Sports & Hobbies",
+        "subCategories": [
+            {"title": "Books"},
+            {"title": "Magazines"},
+            {"title": "Music"},
+            {"title": "Sports"},
+            {"title": "Gym"},
+            {"title": "Sports Clothes"},
+            {"title": "Other Hobbies"}
+        ]
+    },
+    {
+        "title": "Kids",
+        "subCategories": [
+            {"title": "Kids Furniture"},
+            {"title": "Toys"},
+            {"title": "Kids Clothes"},
+            {"title": "Kids Bikes"},
+            {"title": "Swings & Slides"},
+            {"title": "Kids Accessories"},
+            {"title": "Other"}
+        ]
+    }
+]

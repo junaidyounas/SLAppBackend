@@ -7,5 +7,4 @@ export class CreateOtpDto {
   @IsNotEmpty()
   @ApiProperty()
   email: string;
-
 }

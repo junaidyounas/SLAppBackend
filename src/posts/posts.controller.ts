@@ -43,15 +43,15 @@ export class PostsController {
 
   @UseGuards(AuthGuard())
   @ApiBearerAuth('jwt')
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
-    return this.postsService.update(+id, updatePostDto);
+  @Patch('/:id')
+  updateById(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto, @Req() req) {
+    return this.postsService.update(id, updatePostDto, req.user);
   }
 
   @UseGuards(AuthGuard())
   @ApiBearerAuth('jwt')
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.postsService.remove(+id);
+    return this.postsService.remove(id);
   }
 }

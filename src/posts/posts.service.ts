@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Query } from 'express-serve-static-core';
 import { Model } from 'mongoose';
 import { User } from 'src/auth/schemas/auth.schema';
+import { isMongooseWrongId } from 'src/utils/isMongooseWrongId';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { Post } from './schemas/post.schema';
@@ -50,11 +51,20 @@ export class PostsService {
     return post;
   }
 
-  update(id: number, updatePostDto: UpdatePostDto) {
-    return `This action updates a #${id} post`;
+  async update(id: string, updatePostDto: UpdatePostDto, user): Promise<Post> {
+    isMongooseWrongId(id);
+    const post =await this.postModel.findById(id);
+    if(post.user.toString() !== user._id.toString()) {
+      throw new BadRequestException('Only owner of this post can update');
+    }
+    const updated = await this.postModel.findByIdAndUpdate(id, updatePostDto, {
+      new: true,
+      runValidators: true
+    });
+    return updated;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} post`;
   }
 }

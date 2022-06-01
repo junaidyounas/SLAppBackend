@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { AppModule } from './../src/app.module';
+import { AppModule } from '../src/app.module';
 import mongoose from 'mongoose';
 
 describe('AuthController (e2e)', () => {
@@ -17,7 +17,7 @@ describe('AuthController (e2e)', () => {
   });
 
   beforeAll(() => {
-    mongoose.connect(process.env.MONGO_URI_LOCAL_TEST,
+    mongoose.connect(process.env.MONGO_URI_LOCAL,
         function() {
             mongoose.connection.db.dropDatabase();
         }
@@ -30,7 +30,7 @@ describe('AuthController (e2e)', () => {
 
   const user = {
       name: 'Junaid Younas',
-      email: 'junaid1@email.com',
+      email: 'junaid1@email210.com',
       password: '12345678',
       phone: '12345678'
   }
@@ -41,7 +41,22 @@ describe('AuthController (e2e)', () => {
       .send(user)
       .expect(201)
       .then(res => {
-          expect(res.body.token).toBeDefined()
+        console.log(res.body)
+          expect(res.body.name).toBeDefined();
+          expect(res.body.phone).toBeDefined()
+          expect(res.body.email).toBeDefined()
+          expect(res.body.password).toBeDefined()
       });
-  })
+  });
+
+  it('(Post) ==> Login a new user', () => {
+    return request(app.getHttpServer())
+    .post('/auth/login')
+    .send(user)
+    .expect(201)
+    .then(res => {
+      console.log(res.body)
+        expect(res.body.token).toBeDefined();
+    });
+});
 });

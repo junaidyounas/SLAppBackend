@@ -1,9 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { isMongooseWrongId } from 'src/utils/isMongooseWrongId';
-import { CreateCategoryDto } from './dto/create-category.dto';
-import { UpdateCategoryDto } from './dto/update-category.dto';
+import { isMongooseWrongId } from '../utils/isMongooseWrongId';
 import { Category } from './schema/category.schema';
 
 @Injectable()

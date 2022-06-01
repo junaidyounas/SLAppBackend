@@ -1,8 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
-import { User } from 'src/auth/schemas/auth.schema';
-import { Category } from 'src/categories/schema/category.schema';
-import { CONDITION } from 'src/types/Condition.type';
+import { User } from '../../auth/schemas/auth.schema';
+import { Category } from '../../categories/schema/category.schema';
+import { CONDITION } from '../../types/Condition.type';
 
 
 @Schema()

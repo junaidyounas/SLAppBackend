@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsEmail, IsEmpty, IsNotEmpty, IsNumber, IsString } from "class-validator";
-import { User } from "src/auth/schemas/auth.schema";
-import { Category } from "src/categories/schema/category.schema";
+import { User } from "../../auth/schemas/auth.schema";
+import { Category } from "../../categories/schema/category.schema";
 
 export class CreatePostDto {
   @IsString()

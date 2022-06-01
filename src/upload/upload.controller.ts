@@ -1,11 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, UploadedFiles } from '@nestjs/common';
-import { UploadService } from './upload.service';
-import { UploadImageDto } from './dto/upload-image.dto';
-import { AnyFilesInterceptor, FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
+import { Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes } from '@nestjs/swagger';
 import { diskStorage } from 'multer';
-import { Helper } from 'src/utils/file-upload.utils';
-import { extname } from 'path';
+import { Helper } from '../utils/file-upload.utils';
+import { UploadService } from './upload.service';
 @Controller('upload')
 export class UploadController {
   constructor(private readonly uploadService: UploadService) {}

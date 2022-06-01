@@ -8,14 +8,14 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcryptjs';
 import { Model } from 'mongoose';
-import { LoggedInUser } from 'src/types/LoggedInUser';
+import { LoggedInUser } from '../types/LoggedInUser';
 import { CreateOtpDto } from './dtos/create-otp.dto';
 import { LoginUserDto } from './dtos/login-user.dto';
 import { ResetPassDto } from './dtos/reset-password.dto';
 import { SignUpUserDto } from './dtos/signup-user.dto';
 import { User } from './schemas/auth.schema';
 import { VerifyOtpDto } from './dtos/verify-otp.dto';
-import { getJwtToken } from 'src/utils/getJWTToken';
+import { getJwtToken } from '../utils/getJWTToken';
 
 @Injectable()
 export class AuthService {

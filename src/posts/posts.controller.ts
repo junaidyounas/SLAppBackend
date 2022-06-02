@@ -12,6 +12,7 @@ import {Query as ExpressQuery} from 'express-serve-static-core'
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
+  // Create Post ===> /posts
   @UseGuards(AuthGuard())
   @ApiBearerAuth('jwt')
   @Post()
@@ -21,6 +22,7 @@ export class PostsController {
     return this.postsService.create(createPostDto, req.user);
   }
 
+  // Get Posts ===> /posts
   @Get()
   @ApiQuery({
     name: 'search',
@@ -36,11 +38,13 @@ export class PostsController {
     return this.postsService.findAll(query);
   }
 
+  // Get Post ===> /posts/:id
   @Get('/:id')
   findOne(@Param('id') id: string) {
     return this.postsService.findOne(id);
   }
 
+  // Update Post ===> /posts/:id
   @UseGuards(AuthGuard())
   @ApiBearerAuth('jwt')
   @Patch('/:id')
@@ -48,6 +52,7 @@ export class PostsController {
     return this.postsService.update(id, updatePostDto, req.user);
   }
 
+  // Delete Post ===> /posts/:id
   @UseGuards(AuthGuard())
   @ApiBearerAuth('jwt')
   @Delete(':id')

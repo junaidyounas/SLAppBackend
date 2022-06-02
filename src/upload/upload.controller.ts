@@ -26,7 +26,7 @@ export class UploadController {
     filename: Helper.customFileName,
   }) }))
   uploadFile(@UploadedFile() file: Express.Multer.File) {
-    console.log(file.path);
+    return {data: file.path}
   }
 
 
@@ -60,7 +60,7 @@ export class UploadController {
     filename: Helper.customFileName,
   }) }))
   uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
-    console.log(files.map(item => item.path));
+    return {data: files.map(item => item.path)}
   }
 
   

@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsEmail, IsEmpty, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsArray, IsEmail, IsEmpty, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { CONDITION } from "src/types/Condition.type";
 import { User } from "../../auth/schemas/auth.schema";
 import { Category } from "../../categories/schema/category.schema";
 
@@ -22,6 +23,11 @@ export class CreatePostDto {
   @IsString()
   @IsNotEmpty()
   @ApiProperty()
+  condition: CONDITION
+
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty()
   location: string;
 
   @IsString()
@@ -33,6 +39,11 @@ export class CreatePostDto {
   @IsNotEmpty()
   @ApiProperty()
   subCategory: string;
+
+  @IsArray()
+  @IsNotEmpty()
+  @ApiProperty()
+  images: string[]
 
   @IsEmpty()
   readonly user: User

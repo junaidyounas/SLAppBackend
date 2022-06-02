@@ -31,8 +31,11 @@ export class Post {
   @Prop({ default: true, type: String })
   isVisible: boolean;
 
-  @Prop({ default: false, type: String })
+  @Prop({ default: true, type: String })
   isActive: boolean;
+
+  @Prop()
+  images: string[];
 
   @Prop({type: mongoose.Schema.Types.ObjectId, ref: 'User'})
   user: User

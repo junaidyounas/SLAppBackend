@@ -19,12 +19,14 @@ describe('AuthController (e2e)', () => {
   beforeAll(() => {
     mongoose.connect(process.env.MONGO_URI_LOCAL,
         function() {
-            mongoose.connection.db.dropDatabase();
+            // mongoose.connection.db.dropCollection('users');
+             mongoose.connection.db.dropCollection('users');
         }
     )
   });
 
   afterAll(() => {
+      
       mongoose.disconnect();
   })
 
@@ -35,13 +37,13 @@ describe('AuthController (e2e)', () => {
       phone: '12345678'
   }
 
+  // test for create new user
   it('(Post) ==> register a new user', () => {
       return request(app.getHttpServer())
       .post('/auth/signup')
       .send(user)
       .expect(201)
       .then(res => {
-        console.log(res.body)
           expect(res.body.name).toBeDefined();
           expect(res.body.phone).toBeDefined()
           expect(res.body.email).toBeDefined()
@@ -49,14 +51,14 @@ describe('AuthController (e2e)', () => {
       });
   });
 
+  // test for login
   it('(Post) ==> Login a new user', () => {
     return request(app.getHttpServer())
     .post('/auth/login')
     .send(user)
     .expect(201)
     .then(res => {
-      console.log(res.body)
         expect(res.body.token).toBeDefined();
     });
-});
+  });
 });

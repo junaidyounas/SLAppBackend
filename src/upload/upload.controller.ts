@@ -1,5 +1,5 @@
-import { Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { Body, Controller, Post, UploadedFile, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { AnyFilesInterceptor, FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes } from '@nestjs/swagger';
 import { diskStorage } from 'multer';
 import { Helper } from '../utils/file-upload.utils';
@@ -8,7 +8,7 @@ import { UploadService } from './upload.service';
 export class UploadController {
   constructor(private readonly uploadService: UploadService) {}
 
-  @Post('/images')
+  @Post('/image')
   @ApiConsumes('multipart/form-data')
   @ApiBody({
     schema: {
@@ -30,27 +30,40 @@ export class UploadController {
   }
 
 
-  // @Post('/images')
-  //   @ApiConsumes("multipart/form-data")
-  //   @UseInterceptors(FileInterceptor('file',
-  //       {
-  //           storage: diskStorage({
-  //               destination: './images', 
-  //               filename: (req, file, cb) => {
-  //                   const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('')
-  //                   return cb(null, `${randomName}${extname(file.originalname)}`)
-  //               }
-  //           })
-  //       }
-  //   ))
-  //   async upload(
-  //       @Body() uploadDto: UploadImageDto,
-  //       @UploadedFile() file: Express.Multer.File
-  //   ): Promise<void>
-  //   {
-  //       console.log(uploadDto);
-  //       console.log(file);
-  //   }
+  @Post('/images')
+  @ApiConsumes('multipart/form-data')
+//   @ApiBody({
+//     //type: ReasonCode,
+//     description: 'Reason Code',
+//     isArray: true,
+//     type: 'array',
+    
+    
+    
+// })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'array', // 👈  array of files
+          items: {
+            type: 'string',
+            format: 'binary',
+          },
+        },
+      },
+    },
+  })
+  @UseInterceptors(AnyFilesInterceptor({ storage: diskStorage({
+    destination: Helper.destinationPath,
+    filename: Helper.customFileName,
+  }) }))
+  uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
+    console.log(files.map(item => item.path));
+  }
+
+  
 
 
 }

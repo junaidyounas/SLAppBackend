@@ -1,7 +1,7 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { IsArray, IsEmpty, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
-import { User } from 'src/auth/schemas/auth.schema';
-import { CONDITION } from 'src/types/Condition.type';
+import { User } from '../../auth/schemas/auth.schema';
+import { CONDITION } from '../../types/Condition.type';
 import { Category } from '../../categories/schema/category.schema';
 import { CreatePostDto } from './create-post.dto';
 

@@ -31,6 +31,8 @@ describe('AuthController (e2e)', () => {
     "title": "Post",
     "description": "Post Description",
     "price": 20,
+    "condition": "New",
+    "images": ["image"],
     "location": "Lahore, Pakistan",
     "category": "6295c3c226ca550f27f7eb55",
     "subCategory": "Mobiles"
@@ -86,6 +88,28 @@ describe('AuthController (e2e)', () => {
     .expect(200)
     .then(res => {
         expect(res.body.title).toBeDefined();
+    });
+  });
+
+  // Get single post data
+  it('(Get) ==> Single Post Data', () => {
+    return request(app.getHttpServer())
+    .get(`/posts/${postId}`)
+    .send(post)
+    .expect(200)
+    .then(res => {
+        expect(res.body).toBeDefined();
+    });
+  });
+
+  // Get all post data
+  it('(Get) ==> Get all Post Data', () => {
+    return request(app.getHttpServer())
+    .get(`/posts`)
+    .send(post)
+    .expect(200)
+    .then(res => {
+        expect(res.body).toBeDefined();
     });
   });
 });

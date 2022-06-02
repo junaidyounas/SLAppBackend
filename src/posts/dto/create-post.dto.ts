@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsArray, IsEmail, IsEmpty, IsNotEmpty, IsNumber, IsString } from "class-validator";
-import { CONDITION } from "src/types/Condition.type";
+import { CONDITION } from "../../types/Condition.type";
 import { User } from "../../auth/schemas/auth.schema";
 import { Category } from "../../categories/schema/category.schema";
 

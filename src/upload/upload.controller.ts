@@ -1,6 +1,7 @@
-import { Body, Controller, Post, UploadedFile, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Post, UploadedFile, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { AnyFilesInterceptor, FileInterceptor } from '@nestjs/platform-express';
-import { ApiBody, ApiConsumes } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiConsumes } from '@nestjs/swagger';
 import { diskStorage } from 'multer';
 import { Helper } from '../utils/file-upload.utils';
 import { UploadService } from './upload.service';
@@ -8,6 +9,8 @@ import { UploadService } from './upload.service';
 export class UploadController {
   constructor(private readonly uploadService: UploadService) {}
 
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth('jwt')
   @Post('/image')
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -30,17 +33,11 @@ export class UploadController {
   }
 
 
+  // multiple images upload
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth('jwt')
   @Post('/images')
   @ApiConsumes('multipart/form-data')
-//   @ApiBody({
-//     //type: ReasonCode,
-//     description: 'Reason Code',
-//     isArray: true,
-//     type: 'array',
-    
-    
-    
-// })
   @ApiBody({
     schema: {
       type: 'object',

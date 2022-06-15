@@ -9,8 +9,8 @@ import { UploadService } from './upload.service';
 export class UploadController {
   constructor(private readonly uploadService: UploadService) {}
 
-  @UseGuards(AuthGuard())
-  @ApiBearerAuth('jwt')
+  // @UseGuards(AuthGuard())
+  // @ApiBearerAuth('jwt')
   @Post('/image')
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -29,13 +29,13 @@ export class UploadController {
     filename: Helper.customFileName,
   }) }))
   uploadFile(@UploadedFile() file: Express.Multer.File) {
-    return {data: file.path}
+    return  file.path
   }
 
 
   // multiple images upload
-  @UseGuards(AuthGuard())
-  @ApiBearerAuth('jwt')
+  // @UseGuards(AuthGuard())
+  // @ApiBearerAuth('jwt')
   @Post('/images')
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -57,7 +57,7 @@ export class UploadController {
     filename: Helper.customFileName,
   }) }))
   uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
-    return {data: files.map(item => item.path)}
+    return files.map(item => item.path)
   }
 
   

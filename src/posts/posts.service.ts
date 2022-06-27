@@ -14,9 +14,8 @@ export class PostsService {
     @InjectModel(Post.name)
     private postModel: Model<Post>,
   ) {}
- async create(createPostDto: CreatePostDto, user: User): Promise<Post> {
-
-    const data = Object.assign(createPostDto, {user: user._id})
+  async create(createPostDto: CreatePostDto, user: User): Promise<Post> {
+    const data = Object.assign(createPostDto, { user: user._id });
 
     const post = await this.postModel.create(data);
 
@@ -24,47 +23,54 @@ export class PostsService {
   }
 
   async findAll(query: Query) {
-    const search = query.search ? {
-      title: {
-        $regex: query.search,
-        $options: 'i'
-      }
-    } : {}
+    const search = query.search
+      ? {
+          title: {
+            $regex: query.search,
+            $options: 'i',
+          },
+        }
+      : {};
 
     // pagination
     const resultPerPage = Number(process.env.POSTS_PER_PAGE);
     const currentPage = Number(query.page) || 1;
-    const skip = resultPerPage * (currentPage - 1)
+    const skip = resultPerPage * (currentPage - 1);
 
     return await this.postModel
-    .find({ ...search })
-    .limit(resultPerPage)
-    .skip(skip);
+      .find({ ...search })
+      .limit(resultPerPage)
+      .skip(skip);
   }
 
   // ====> /:_id
   async findOne(id: string): Promise<Post> {
     const post = await this.postModel
-    .findById(id)
-    .populate('user')
-    .populate('category', ['title']);
+      .findById(id)
+      .populate('user')
+      .populate('category', ['title']);
     return post;
   }
 
   async update(id: string, updatePostDto: UpdatePostDto, user): Promise<Post> {
     isMongooseWrongId(id);
-    const post =await this.postModel.findById(id);
-    if(post.user.toString() !== user._id.toString()) {
+    const post = await this.postModel.findById(id);
+    if (post.user.toString() !== user._id.toString()) {
       throw new BadRequestException('Only owner of this post can update');
     }
     const updated = await this.postModel.findByIdAndUpdate(id, updatePostDto, {
       new: true,
-      runValidators: true
+      runValidators: true,
     });
     return updated;
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} post`;
+  async remove(id: string) {
+    isMongooseWrongId(id);
+    const post = await this.postModel
+      .findByIdAndRemove(id)
+      .populate('user')
+      .populate('category', ['title']);
+    return post;
   }
 }

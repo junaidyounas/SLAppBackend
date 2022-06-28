@@ -1,11 +1,29 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  Req,
+  Query,
+} from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
-import { ApiBasicAuth, ApiBearerAuth, ApiBody, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBasicAuth,
+  ApiBearerAuth,
+  ApiBody,
+  ApiParam,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 
-import {Query as ExpressQuery} from 'express-serve-static-core'
+import { Query as ExpressQuery } from 'express-serve-static-core';
 
 @ApiTags('Posts')
 @Controller('posts')
@@ -18,8 +36,14 @@ export class PostsController {
   @Post()
   @ApiBody({ type: CreatePostDto })
   create(@Body() createPostDto: CreatePostDto, @Req() req) {
-    
     return this.postsService.create(createPostDto, req.user);
+  }
+
+  @Get('/my')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth('jwt')
+  allMyPosts(@Req() req) {
+    return this.postsService.getAllMyPosts(req.user);
   }
 
   // Get Posts ===> /posts
@@ -27,14 +51,14 @@ export class PostsController {
   @ApiQuery({
     name: 'search',
     required: false,
-    type: String
+    type: String,
   })
   @ApiQuery({
     name: 'page',
     required: false,
-    type: String
+    type: String,
   })
-  findAll(@Query() query: ExpressQuery ) {
+  findAll(@Query() query: ExpressQuery) {
     return this.postsService.findAll(query);
   }
 
@@ -48,7 +72,11 @@ export class PostsController {
   @UseGuards(AuthGuard())
   @ApiBearerAuth('jwt')
   @Patch('/:id')
-  updateById(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto, @Req() req) {
+  updateById(
+    @Param('id') id: string,
+    @Body() updatePostDto: UpdatePostDto,
+    @Req() req,
+  ) {
     return this.postsService.update(id, updatePostDto, req.user);
   }
 

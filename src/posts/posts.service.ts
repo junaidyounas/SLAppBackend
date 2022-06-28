@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Query } from 'express-serve-static-core';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { User } from '../auth/schemas/auth.schema';
 import { isMongooseWrongId } from '..//utils/isMongooseWrongId';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -41,6 +41,11 @@ export class PostsService {
       .find({ ...search })
       .limit(resultPerPage)
       .skip(skip);
+  }
+
+  async getAllMyPosts(user) {
+    console.log(user.id);
+    return await this.postModel.find({ user: user._id.toString() });
   }
 
   // ====> /:_id

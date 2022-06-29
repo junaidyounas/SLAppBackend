@@ -43,9 +43,9 @@ export class PostsService {
       .skip(skip);
   }
 
-  async getAllMyPosts(user) {
-    console.log(user.id);
-    return await this.postModel.find({ user: user._id.toString() });
+  async getAllMyPosts(currentUser) {
+    console.log(currentUser);
+    return await this.postModel.find({ user: currentUser.id });
   }
 
   // ====> /:_id

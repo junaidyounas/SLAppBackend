@@ -44,7 +44,6 @@ export class PostsService {
   }
 
   async getAllMyPosts(currentUser) {
-    console.log(currentUser);
     return await this.postModel.find({ user: currentUser.id });
   }
 

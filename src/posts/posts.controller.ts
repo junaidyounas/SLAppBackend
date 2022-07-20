@@ -54,6 +54,11 @@ export class PostsController {
     type: String,
   })
   @ApiQuery({
+    name: 'category',
+    required: false,
+    type: String,
+  })
+  @ApiQuery({
     name: 'page',
     required: false,
     type: String,

@@ -63,6 +63,11 @@ export class PostsController {
     required: false,
     type: String,
   })
+  @ApiQuery({
+    name: 'subCategory',
+    required: false,
+    type: String,
+  })
   findAll(@Query() query: ExpressQuery) {
     return this.postsService.findAll(query);
   }

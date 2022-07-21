@@ -36,6 +36,14 @@ export class PostsService {
           category: query.category,
         }
       : {};
+      const subCategory = query.subCategory
+      ? {
+        subCategory: {
+          $regex: query.subCategory,
+          $options: 'i',
+        },
+        }
+      : {};
 
     // pagination
     const resultPerPage = Number(process.env.POSTS_PER_PAGE);
@@ -43,7 +51,7 @@ export class PostsService {
     const skip = resultPerPage * (currentPage - 1);
 
     return await this.postModel
-      .find({ ...search, ...category })
+      .find({ ...search, ...category, ...subCategory })
       .limit(resultPerPage)
       .skip(skip);
   }

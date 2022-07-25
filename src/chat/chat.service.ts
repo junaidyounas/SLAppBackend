@@ -17,12 +17,16 @@ export class ChatService {
   }
 
   async createSession(createSessionDto: createSessionDto, user: User) {
-    const recId = new mongoose.Types.ObjectId(
+    const receiverId = new mongoose.Types.ObjectId(
       createSessionDto.receiverId.toString(),
+    );
+    const postId = new mongoose.Types.ObjectId(
+      createSessionDto.postId.toString(),
     );
     const data = Object.assign(createSessionDto, {
       senderId: user._id,
-      receiverId: recId,
+      receiverId,
+      postId,
     });
 
     const session = await this.chatModal.create(data);

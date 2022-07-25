@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
 import { User } from 'src/auth/schemas/auth.schema';
+import { Post } from 'src/posts/schemas/post.schema';
 
 @Schema()
 export class ChatSession {
@@ -9,6 +10,9 @@ export class ChatSession {
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   senderId: User;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Post' })
+  postId: Post;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   receiverId: User;

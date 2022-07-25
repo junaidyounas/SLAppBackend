@@ -1,12 +1,9 @@
 import { Module } from '@nestjs/common';
-import { PostsService } from './posts.service';
-import { PostsController } from './posts.controller';
-import { PostSchema, Post } from './schemas/post.schema';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PassportModule } from '@nestjs/passport';
-import { JwtStrategy } from 'src/auth/jwt.strategy';
-import { ConfigService } from '@nestjs/config';
-import { JwtModule } from '@nestjs/jwt';
+import { PostsController } from './posts.controller';
+import { PostsService } from './posts.service';
+import { Post, PostSchema } from './schemas/post.schema';
 
 @Module({
   imports: [

@@ -8,6 +8,7 @@ import { UploadModule } from './upload/upload.module';
 import { MulterModule } from '@nestjs/platform-express';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { ChatModule } from './chat/chat.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -24,7 +25,8 @@ import { join } from 'path';
     AuthModule,
     PostsModule,
     CategoriesModule,
-    UploadModule
+    UploadModule,
+    ChatModule
   ]
 })
 export class AppModule {}

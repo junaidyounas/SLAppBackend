@@ -20,11 +20,6 @@ import { UpdateChatDto } from './dto/update-chat.dto';
 export class ChatController {
   constructor(private readonly chatService: ChatService) {}
 
-  @Post()
-  create(@Body() createSessionDto: createSessionDto) {
-    return this.chatService.create(createSessionDto);
-  }
-
   @UseGuards(AuthGuard())
   @ApiBearerAuth('jwt')
   @Post('/create-session')
@@ -33,9 +28,16 @@ export class ChatController {
     return this.chatService.createSession(createSessionDto, req.user);
   }
 
-  @Get()
-  findAll() {
-    return this.chatService.findAll();
+  @Get('/sessions')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth('jwt')
+  allCurrentUserChatSessions(@Req() req) {
+    return this.chatService.getAllCurrentUserChatSessions(req.user);
+  }
+
+  @Post()
+  create(@Body() createSessionDto: createSessionDto) {
+    return this.chatService.create(createSessionDto);
   }
 
   @Get(':id')

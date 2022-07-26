@@ -34,6 +34,20 @@ export class ChatService {
     // return data;
   }
 
+  async getAllCurrentUserChatSessions(user: User) {
+    return await this.chatModal
+      .find({
+        $or: [{ senderId: user.id }, { receiverId: user.id }],
+      })
+      .populate('postId', [
+        'title',
+        'images',
+        'isActive',
+        'isVisible',
+        'price',
+      ]);
+  }
+
   findAll() {
     return `This action returns all chat`;
   }

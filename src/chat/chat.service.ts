@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
 import { User } from 'src/auth/schemas/auth.schema';
+import { CreateMessageDto } from './dto/create-message.dto';
 import { createSessionDto } from './dto/create-session.dto';
 import { UpdateChatDto } from './dto/update-chat.dto';
 import { ChatSession } from './schemas/session.schema';
@@ -34,11 +35,15 @@ export class ChatService {
     // return data;
   }
 
+  // get all current user sessions
   async getAllCurrentUserChatSessions(user: User) {
     return await this.chatModal
-      .find({
-        $or: [{ senderId: user.id }, { receiverId: user.id }],
-      })
+      .find(
+        {
+          $or: [{ senderId: user.id }, { receiverId: user.id }],
+        },
+        { messages: { $slice: -1 } },
+      )
       .populate('postId', [
         'title',
         'images',
@@ -46,6 +51,37 @@ export class ChatService {
         'isVisible',
         'price',
       ]);
+  }
+
+  // send messages
+  async sendMessage(createMessageDto: CreateMessageDto, id: string) {
+    const sendMsg = await this.chatModal.update(
+      { _id: id },
+      { $push: { messages: createMessageDto } },
+    );
+    console.log(sendMsg);
+    return sendMsg;
+  }
+
+  // find one session with _id
+  async findOneSessionById(id: string) {
+    return await this.chatModal
+      .findOne({ _id: id }, { messages: { $slice: -1 } })
+      .populate('postId', [
+        'title',
+        'images',
+        'isActive',
+        'isVisible',
+        'price',
+      ]);
+  }
+
+  // get single chat messages
+  async getChatMessages(id: string) {
+    return this.chatModal.findOne(
+      { _id: id },
+      { messages: { $slice: [0, 3] } },
+    );
   }
 
   findAll() {

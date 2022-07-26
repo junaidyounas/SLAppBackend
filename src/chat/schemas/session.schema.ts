@@ -1,7 +1,29 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
 import { User } from 'src/auth/schemas/auth.schema';
+import { MessageType } from 'src/enum/MessageType.enum';
 import { Post } from 'src/posts/schemas/post.schema';
+
+@Schema()
+export class Message {
+  @Prop()
+  message: string;
+
+  @Prop()
+  type: MessageType;
+
+  @Prop()
+  images: string[];
+
+  @Prop({ default: false, type: String })
+  isRead: boolean;
+
+  @Prop({ default: false, type: String })
+  isDeleted: boolean;
+
+  @Prop({ default: new Date() })
+  createdAt: Date;
+}
 
 @Schema()
 export class ChatSession {
@@ -28,6 +50,9 @@ export class ChatSession {
 
   @Prop({ default: new Date() })
   updatedAt: Date;
+
+  @Prop()
+  messages: Message[];
 }
 
 export const ChatSessionSchema = SchemaFactory.createForClass(ChatSession);

@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { Query } from 'express-serve-static-core';
 import mongoose, { Model } from 'mongoose';
 import { User } from 'src/auth/schemas/auth.schema';
 import { CreateMessageDto } from './dto/create-message.dto';
@@ -77,10 +78,23 @@ export class ChatService {
   }
 
   // get single chat messages
-  async getChatMessages(id: string) {
+  async getChatMessages(id: string, query: Query) {
+    const start = query.start ? Number(query.start) : 0;
+    const end = query.end ? Number(query.end) : 20;
+    console.log(start, end);
     return this.chatModal.findOne(
       { _id: id },
-      { messages: { $slice: [0, 3] } },
+      {
+        messages: {
+          $slice: [
+            {
+              $reverseArray: '$messages',
+            },
+            start,
+            end,
+          ],
+        },
+      },
     );
   }
 

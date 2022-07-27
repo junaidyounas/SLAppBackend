@@ -8,13 +8,16 @@ import {
   Delete,
   Req,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { ChatService } from './chat.service';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { createSessionDto } from './dto/create-session.dto';
 import { UpdateChatDto } from './dto/update-chat.dto';
+
+import { Query as ExpressQuery } from 'express-serve-static-core';
 
 @ApiTags('Chats')
 @Controller('chat')
@@ -57,9 +60,19 @@ export class ChatController {
   }
 
   // get messages
+  @ApiQuery({
+    name: 'start',
+    required: false,
+    type: String,
+  })
+  @ApiQuery({
+    name: 'end',
+    required: false,
+    type: String,
+  })
   @Get('/messages/:id')
-  getSingleChatMessages(@Param('id') id: string) {
-    return this.chatService.getChatMessages(id);
+  getSingleChatMessages(@Param('id') id: string, @Query() query: ExpressQuery) {
+    return this.chatService.getChatMessages(id, query);
   }
 
   @Patch(':id')

@@ -18,6 +18,7 @@ export class createSessionDto {
   postId: Post;
 
   @IsNotEmpty()
+  @IsString()
   @ApiProperty()
   receiverId: User;
 

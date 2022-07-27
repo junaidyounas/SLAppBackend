@@ -74,7 +74,15 @@ export class ChatService {
         'isActive',
         'isVisible',
         'price',
-      ]);
+        'user',
+      ])
+      .populate({
+        path: 'postId',
+        populate: {
+          path: 'user',
+        },
+      })
+      .exec();
   }
 
   // get single chat messages
@@ -82,20 +90,28 @@ export class ChatService {
     const start = query.start ? Number(query.start) : 0;
     const end = query.end ? Number(query.end) : 20;
     console.log(start, end);
-    return this.chatModal.findOne(
-      { _id: id },
-      {
-        messages: {
-          $slice: [
-            {
-              $reverseArray: '$messages',
-            },
-            start,
-            end,
-          ],
+    return this.chatModal
+      .findOne(
+        { _id: id },
+        {
+          messages: {
+            $slice: [
+              {
+                $reverseArray: '$messages',
+              },
+              start,
+              end,
+            ],
+          },
         },
-      },
-    );
+      )
+      .populate('postId', [
+        'title',
+        'images',
+        'isActive',
+        'isVisible',
+        'price',
+      ]);
   }
 
   findAll() {

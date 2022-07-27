@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Query } from 'express-serve-static-core';
 import mongoose, { Model } from 'mongoose';
@@ -30,6 +30,15 @@ export class ChatService {
       receiverId,
       postId,
     });
+
+    const checkFirst = await this.chatModal.findOne({
+      senderId: user._id,
+      receiverId,
+      postId,
+    });
+    if (checkFirst) {
+      throw new BadRequestException();
+    }
 
     const session = await this.chatModal.create(data);
     return session;

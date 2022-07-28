@@ -44,32 +44,36 @@ export class AuthService {
   }
 
   async login(loginUserDto: LoginUserDto): Promise<LoggedInUser> {
-    const { email, password } = loginUserDto;
-    const user = await this.userModal
-      .findOne({ email: email })
-      .select('+password');
-    // console.log({email,user})
+    try {
+      const { email, password } = loginUserDto;
+      const user = await this.userModal
+        .findOne({ email: email })
+        .select('+password');
+      // console.log({email,user})
 
-    if (!user) {
-      throw new UnauthorizedException('Invalid username or password');
-      
-    }
+      if (!user) {
+        throw new UnauthorizedException('Invalid username or password');
+      }
 
       const unHashedPassword = await bcrypt.compare(password, user.password);
       if (!unHashedPassword) {
         throw new UnauthorizedException('Invalid username or password');
       }
 
-    const token = await getJwtToken(user._id, this.jwtService);
-    return {
-      _id: user._id,
-      token,
-      name: user.name,
-      email: user.email,
-      phone: user.phone,
-    };
+      const token = await getJwtToken(user._id, this.jwtService);
+      return {
+        _id: user._id,
+        token,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+      };
+    } catch (err) {
+      if (err.code === 500) {
+        throw new ConflictException('Incorrect username or password');
+      }
+    }
   }
-
 
   // Create Otp ==> /auth/createOtp
   async createOtp(createOtpDto: CreateOtpDto) {
@@ -92,20 +96,20 @@ export class AuthService {
     return changedUser;
   }
 
-  async verifyOtp(verifyOtpDto: VerifyOtpDto){
+  async verifyOtp(verifyOtpDto: VerifyOtpDto) {
     const { otp, email } = verifyOtpDto;
-     const user = await this.userModal
-       .findOne({ email: email })
-       .select('+resetOtp')
-       .select('+resetOtpCreatedAt');
-     if (!user) {
-       throw new BadRequestException('User not Found');
-     }
-      if (Number(otp) === Number(user.resetOtp)) {
-        return {message: 'Successfully verified OTP.'}
-      } else {
-        throw new BadRequestException('Wrong otp entered');
-      }
+    const user = await this.userModal
+      .findOne({ email: email })
+      .select('+resetOtp')
+      .select('+resetOtpCreatedAt');
+    if (!user) {
+      throw new BadRequestException('User not Found');
+    }
+    if (Number(otp) === Number(user.resetOtp)) {
+      return { message: 'Successfully verified OTP.' };
+    } else {
+      throw new BadRequestException('Wrong otp entered');
+    }
   }
 
   // Reset Password ==> /auth/resetPassword
@@ -114,7 +118,7 @@ export class AuthService {
     const user = await this.userModal
       .findOne({ email: email })
       .select('+resetOtp')
-      .select('+resetOtpCreatedAt');;
+      .select('+resetOtpCreatedAt');
     if (!user) {
       throw new BadRequestException('User not Found');
     }
@@ -132,12 +136,56 @@ export class AuthService {
           new: true,
         },
       );
-    }else{
+    } else {
       throw new BadRequestException('Wrong otp entered');
     }
     // hash Password
-    
-     return changedUser;
 
+    return changedUser;
+  }
+
+  // google login
+  googleLogin(req) {
+    if (!req.user) {
+      return 'No user from google';
+    }
+    return {
+      message: 'User Info from Google',
+      user: req.user,
+    };
+  }
+
+  async loginWithGoogleCred(signUpDto: SignUpUserDto): Promise<LoggedInUser> {
+    const { name, email } = signUpDto;
+    const userFind = await this.userModal.findOne({ email });
+    if (userFind) {
+      const token = await getJwtToken(userFind._id, this.jwtService);
+      return {
+        _id: userFind._id,
+        token,
+        name: userFind.name,
+        email: userFind.email,
+        phone: userFind.phone,
+      };
+    } else {
+      try {
+        const user = await this.userModal.create({
+          name,
+          email,
+        });
+        const token = await getJwtToken(userFind._id, this.jwtService);
+        return {
+          _id: user._id,
+          token,
+          name: user.name,
+          email: user.email,
+          phone: null,
+        };
+      } catch (error) {
+        if (error.code === 11000) {
+          throw new ConflictException('Duplicate email entered.');
+        }
+      }
+    }
   }
 }

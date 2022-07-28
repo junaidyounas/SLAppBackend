@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { ApiBody, ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 import { LoggedInUser } from 'src/types/LoggedInUser';
 import { AuthService } from './auth.service';
@@ -8,8 +8,7 @@ import { SignUpUserDto } from './dtos/signup-user.dto';
 import { User } from './schemas/auth.schema';
 import { ResetPassDto } from './dtos/reset-password.dto';
 import { VerifyOtpDto } from './dtos/verify-otp.dto';
-
-
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('Authentication')
 @Controller('auth')
@@ -62,5 +61,25 @@ export class AuthController {
     verifyOtpDto: VerifyOtpDto,
   ): Promise<any> {
     return this.authService.verifyOtp(verifyOtpDto);
+  }
+
+  // google login
+  @Get('google')
+  @UseGuards(AuthGuard('google'))
+  async googleAuth(@Req() req) {}
+
+  @Get('google/callback')
+  @UseGuards(AuthGuard('google'))
+  googleAuthRedirect(@Req() req) {
+    return this.authService.googleLogin(req);
+  }
+
+  @Post('/register-with-google_and_login')
+  @ApiBody({ type: SignUpUserDto })
+  async loginWithGoogleCredentials(
+    @Body()
+    signupDto: SignUpUserDto,
+  ): Promise<any> {
+    return this.authService.loginWithGoogleCred(signupDto);
   }
 }

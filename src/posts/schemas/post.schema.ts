@@ -1,9 +1,20 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { Document } from 'mongoose';
+import mongoose from 'mongoose';
 import { User } from '../../auth/schemas/auth.schema';
 import { Category } from '../../categories/schema/category.schema';
 import { CONDITION } from '../../types/Condition.type';
 
+@Schema()
+export class Location {
+  @Prop()
+  title: string;
+
+  @Prop()
+  latitude: number;
+
+  @Prop()
+  longitude: number;
+}
 
 @Schema()
 export class Post {
@@ -17,9 +28,9 @@ export class Post {
   price: number;
 
   @Prop()
-  location: string;
+  location: Location;
 
-  @Prop({type: mongoose.Schema.Types.ObjectId, ref: 'Category'})
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Category' })
   category: Category;
 
   @Prop()
@@ -37,9 +48,8 @@ export class Post {
   @Prop()
   images: string[];
 
-  @Prop({type: mongoose.Schema.Types.ObjectId, ref: 'User'})
-  user: User
-
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  user: User;
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post);

@@ -1,8 +1,16 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsArray, IsEmail, IsEmpty, IsNotEmpty, IsNumber, IsString } from "class-validator";
-import { CONDITION } from "../../types/Condition.type";
-import { User } from "../../auth/schemas/auth.schema";
-import { Category } from "../../categories/schema/category.schema";
+import { ApiProperty } from '@nestjs/swagger';
+import {
+  IsArray,
+  IsEmail,
+  IsEmpty,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+} from 'class-validator';
+import { CONDITION } from '../../types/Condition.type';
+import { User } from '../../auth/schemas/auth.schema';
+import { Category } from '../../categories/schema/category.schema';
+import { LocationType } from 'src/types/LocationType';
 
 export class CreatePostDto {
   @IsString()
@@ -23,18 +31,17 @@ export class CreatePostDto {
   @IsString()
   @IsNotEmpty()
   @ApiProperty()
-  condition: CONDITION
+  condition: CONDITION;
 
-  @IsString()
   @IsNotEmpty()
   @ApiProperty()
-  location: string;
+  location: LocationType;
 
   @IsString()
   @IsNotEmpty()
   @ApiProperty()
   category: Category;
-  
+
   @IsString()
   @IsNotEmpty()
   @ApiProperty()
@@ -43,8 +50,8 @@ export class CreatePostDto {
   @IsArray()
   @IsNotEmpty()
   @ApiProperty()
-  images: string[]
+  images: string[];
 
   @IsEmpty()
-  readonly user: User
+  readonly user: User;
 }

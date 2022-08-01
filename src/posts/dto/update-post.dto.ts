@@ -1,9 +1,17 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { IsArray, IsEmpty, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsEmpty,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { User } from '../../auth/schemas/auth.schema';
 import { CONDITION } from '../../types/Condition.type';
 import { Category } from '../../categories/schema/category.schema';
 import { CreatePostDto } from './create-post.dto';
+import { LocationType } from 'src/types/LocationType';
 
 export class UpdatePostDto extends PartialType(CreatePostDto) {
   @IsString()
@@ -24,18 +32,17 @@ export class UpdatePostDto extends PartialType(CreatePostDto) {
   @IsString()
   @IsOptional()
   @ApiProperty()
-  condition: CONDITION
+  condition: CONDITION;
 
-  @IsString()
   @IsOptional()
   @ApiProperty()
-  location: string;
+  location: LocationType;
 
   @IsString()
   @IsOptional()
   @ApiProperty()
   category: Category;
-  
+
   @IsString()
   @IsOptional()
   @ApiProperty()
@@ -44,9 +51,8 @@ export class UpdatePostDto extends PartialType(CreatePostDto) {
   @IsArray()
   @IsOptional()
   @ApiProperty()
-  images: string[]
+  images: string[];
 
   @IsEmpty()
-  readonly user: User
-
+  readonly user: User;
 }

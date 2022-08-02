@@ -36,14 +36,28 @@ export class PostsService {
           category: query.category,
         }
       : {};
-      const subCategory = query.subCategory
+    const subCategory = query.subCategory
       ? {
-        subCategory: {
-          $regex: query.subCategory,
-          $options: 'i',
-        },
+          subCategory: {
+            $regex: query.subCategory,
+            $options: 'i',
+          },
         }
       : {};
+
+    const location =
+      query.latitude && query.longitude
+        ? {
+            location: {
+              $geoWithin: {
+                $centerSphere: [
+                  [Number(query.longitude), Number(query.latitude)],
+                  3 / 3963.2,
+                ],
+              },
+            },
+          }
+        : {};
 
     // pagination
     const resultPerPage = Number(process.env.POSTS_PER_PAGE);
@@ -51,7 +65,7 @@ export class PostsService {
     const skip = resultPerPage * (currentPage - 1);
 
     return await this.postModel
-      .find({ ...search, ...category, ...subCategory })
+      .find({ ...search, ...category, ...subCategory, ...location })
       .limit(resultPerPage)
       .skip(skip);
   }

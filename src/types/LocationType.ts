@@ -1,5 +1,5 @@
 export interface LocationType {
-  latitude: number;
-  longitude: number;
+  type: string;
   title: string;
+  coordinates: number[];
 }

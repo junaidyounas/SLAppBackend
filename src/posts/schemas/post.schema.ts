@@ -9,11 +9,11 @@ export class Location {
   @Prop()
   title: string;
 
-  @Prop()
-  latitude: number;
+  @Prop({ type: String, enum: ['Point'] })
+  type: string;
 
-  @Prop()
-  longitude: number;
+  @Prop({ index: '2dsphere' })
+  coordinates: number[];
 }
 
 @Schema()
@@ -27,7 +27,7 @@ export class Post {
   @Prop()
   price: number;
 
-  @Prop()
+  @Prop({ type: Object, ref: 'Location' })
   location: Location;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Category' })

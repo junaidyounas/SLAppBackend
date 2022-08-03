@@ -78,13 +78,32 @@ export class PostsService {
           }
         : {};
 
+    const pricegt = query.pricegt
+      ? {
+          price: { $gt: query.pricegt },
+        }
+      : {};
+
+    const pricelt = query.pricelt
+      ? {
+          price: { $lt: query.pricelt },
+        }
+      : {};
+
     // pagination
     const resultPerPage = Number(process.env.POSTS_PER_PAGE);
     const currentPage = Number(query.page) || 1;
     const skip = resultPerPage * (currentPage - 1);
 
     return await this.postModel
-      .find({ ...search, ...category, ...subCategory, ...location })
+      .find({
+        ...search,
+        ...category,
+        ...subCategory,
+        ...location,
+        ...pricegt,
+        ...pricelt,
+      })
       .limit(resultPerPage)
       .skip(skip);
     // .sort({ createdAt: -1 });

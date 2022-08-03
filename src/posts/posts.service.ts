@@ -45,15 +45,34 @@ export class PostsService {
         }
       : {};
 
+    // const location =
+    //   query.latitude && query.longitude
+    //     ? {
+    //         location: {
+    //           $geoWithin: {
+    //             $centerSphere: [
+    //               [Number(query.longitude), Number(query.latitude)],
+    //               Number(process.env.MILLS_AREA_COVER) / 3963.2,
+    //             ],
+    //           },
+    //         },
+    //       }
+    //     : {};
+
     const location =
       query.latitude && query.longitude
         ? {
             location: {
-              $geoWithin: {
-                $centerSphere: [
-                  [Number(query.longitude), Number(query.latitude)],
-                  3 / 3963.2,
-                ],
+              $near: {
+                $geometry: {
+                  type: 'Point',
+                  coordinates: [
+                    Number(query.longitude),
+                    Number(query.latitude),
+                  ],
+                },
+                $minDistance: 0,
+                $maxDistance: 13000,
               },
             },
           }
@@ -68,6 +87,7 @@ export class PostsService {
       .find({ ...search, ...category, ...subCategory, ...location })
       .limit(resultPerPage)
       .skip(skip);
+    // .sort({ createdAt: -1 });
   }
 
   async getAllMyPosts(currentUser) {

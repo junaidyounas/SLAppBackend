@@ -27,7 +27,7 @@ export class Post {
   @Prop()
   price: number;
 
-  @Prop({ type: Object, ref: 'Location' })
+  @Prop({ type: Object, ref: 'Location', index: '2dsphere' })
   location: Location;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Category' })
@@ -50,6 +50,9 @@ export class Post {
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   user: User;
+
+  @Prop({ default: new Date() })
+  createdAt: Date;
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post);

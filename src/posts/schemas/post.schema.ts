@@ -36,7 +36,7 @@ export class Post {
   @Prop()
   subCategory: string;
 
-  @Prop({ default: CONDITION.NEW, type: String })
+  @Prop({ type: String })
   condition: CONDITION;
 
   @Prop({ default: true, type: String })
@@ -50,6 +50,15 @@ export class Post {
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   user: User;
+
+  @Prop()
+  brand: string;
+
+  @Prop()
+  type: string;
+
+  @Prop()
+  deviceType: string;
 
   @Prop({ default: new Date() })
   createdAt: Date;

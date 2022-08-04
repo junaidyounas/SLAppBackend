@@ -5,6 +5,7 @@ import {
   IsEmpty,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsString,
 } from 'class-validator';
 import { CONDITION } from '../../types/Condition.type';
@@ -29,7 +30,7 @@ export class CreatePostDto {
   price: number;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   @ApiProperty()
   condition: CONDITION;
 
@@ -54,4 +55,22 @@ export class CreatePostDto {
 
   @IsEmpty()
   readonly user: User;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty()
+  brand: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty()
+  type: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty()
+  deviceType: string;
+
+  @IsOptional()
+  createdAt: Date;
 }

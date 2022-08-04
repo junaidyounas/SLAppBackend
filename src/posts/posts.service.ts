@@ -31,6 +31,15 @@ export class PostsService {
           },
         }
       : {};
+
+    const searchBrand = query.searchBrand
+      ? {
+          brand: {
+            $regex: query.searchBrand,
+            $options: 'i',
+          },
+        }
+      : {};
     const category = query.category
       ? {
           category: query.category,
@@ -103,6 +112,7 @@ export class PostsService {
         ...location,
         ...pricegt,
         ...pricelt,
+        ...searchBrand,
       })
       .limit(resultPerPage)
       .skip(skip);

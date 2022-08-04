@@ -55,4 +55,22 @@ export class UpdatePostDto extends PartialType(CreatePostDto) {
 
   @IsEmpty()
   readonly user: User;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty()
+  brand: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty()
+  type: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty()
+  deviceType: string;
+
+  @IsOptional()
+  createdAt: Date;
 }

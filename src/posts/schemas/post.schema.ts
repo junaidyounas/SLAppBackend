@@ -55,6 +55,9 @@ export class Post {
   brand: string;
 
   @Prop()
+  make: string;
+
+  @Prop()
   type: string;
 
   @Prop()

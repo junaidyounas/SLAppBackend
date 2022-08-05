@@ -64,6 +64,11 @@ export class UpdatePostDto extends PartialType(CreatePostDto) {
   @IsOptional()
   @IsString()
   @ApiProperty()
+  make: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty()
   type: string;
 
   @IsOptional()

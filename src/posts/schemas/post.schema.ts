@@ -58,6 +58,9 @@ export class Post {
   make: string;
 
   @Prop()
+  year: string;
+
+  @Prop()
   type: string;
 
   @Prop()

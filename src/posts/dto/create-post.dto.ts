@@ -69,6 +69,11 @@ export class CreatePostDto {
   @IsOptional()
   @IsString()
   @ApiProperty()
+  year: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty()
   type: string;
 
   @IsOptional()

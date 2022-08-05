@@ -79,6 +79,21 @@ export class CreatePostDto {
   @IsOptional()
   @IsString()
   @ApiProperty()
+  landType: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty()
+  areaUnit: string;
+
+  @IsOptional()
+  @IsNumber()
+  @ApiProperty()
+  area: number;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty()
   deviceType: string;
 
   @IsOptional()

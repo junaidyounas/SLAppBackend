@@ -40,6 +40,24 @@ export class PostsService {
           },
         }
       : {};
+    const landType = query.landType
+      ? {
+          landType: {
+            $regex: query.landType,
+            $options: 'i',
+          },
+        }
+      : {};
+    const areaUnit = query.areaUnit
+      ? {
+          areaUnit: query.areaUnit,
+        }
+      : {};
+    const area = query.area
+      ? {
+          area: query.area,
+        }
+      : {};
     const searchYear = query.year
       ? {
           year: Number(query.year),
@@ -119,6 +137,9 @@ export class PostsService {
         ...pricelt,
         ...searchBrand,
         ...searchYear,
+        ...landType,
+        ...areaUnit,
+        ...area,
       })
       .limit(resultPerPage)
       .skip(skip)

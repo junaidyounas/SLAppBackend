@@ -64,6 +64,15 @@ export class Post {
   type: string;
 
   @Prop()
+  landType: string;
+
+  @Prop()
+  areaUnit: string;
+
+  @Prop()
+  area: number;
+
+  @Prop()
   deviceType: string;
 
   @Prop({ default: new Date() })

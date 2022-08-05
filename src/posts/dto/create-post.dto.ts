@@ -69,7 +69,7 @@ export class CreatePostDto {
   @IsOptional()
   @IsString()
   @ApiProperty()
-  year: string;
+  year: number;
 
   @IsOptional()
   @IsString()

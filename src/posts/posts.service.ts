@@ -40,6 +40,11 @@ export class PostsService {
           },
         }
       : {};
+    const searchYear = query.year
+      ? {
+          year: Number(query.year),
+        }
+      : {};
     const category = query.category
       ? {
           category: query.category,
@@ -113,6 +118,7 @@ export class PostsService {
         ...pricegt,
         ...pricelt,
         ...searchBrand,
+        ...searchYear,
       })
       .limit(resultPerPage)
       .skip(skip);

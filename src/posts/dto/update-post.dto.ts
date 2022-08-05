@@ -69,7 +69,7 @@ export class UpdatePostDto extends PartialType(CreatePostDto) {
   @IsOptional()
   @IsString()
   @ApiProperty()
-  year: string;
+  year: number;
 
   @IsOptional()
   @IsString()

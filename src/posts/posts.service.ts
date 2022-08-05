@@ -121,8 +121,8 @@ export class PostsService {
         ...searchYear,
       })
       .limit(resultPerPage)
-      .skip(skip);
-    // .sort({ createdAt: -1 });
+      .skip(skip)
+      .sort({ createdAt: -1 });
   }
 
   async getAllMyPosts(currentUser) {

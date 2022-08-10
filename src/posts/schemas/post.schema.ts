@@ -63,8 +63,6 @@ export class Post {
   @Prop()
   type: string;
 
-  
-
   @Prop()
   deviceType: string;
 
@@ -79,6 +77,9 @@ export class Post {
 
   @Prop()
   isFurnished: boolean;
+
+  @Prop()
+  rooms: number;
 
   @Prop({ default: new Date() })
   createdAt: Date;

@@ -126,6 +126,11 @@ export class PostsService {
           isFurnished: query.isFurnished,
         }
       : {};
+    const rooms = query.rooms
+      ? {
+          rooms: { $gte: query.rooms },
+        }
+      : {};
 
     // pagination
     const resultPerPage = Number(process.env.POSTS_PER_PAGE);
@@ -146,6 +151,7 @@ export class PostsService {
         ...areaUnit,
         ...area,
         ...isFurnished,
+        ...rooms,
       })
       .limit(resultPerPage)
       .skip(skip)

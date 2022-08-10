@@ -103,5 +103,10 @@ export class CreatePostDto {
   isFurnished: boolean;
 
   @IsOptional()
+  @IsNumber()
+  @ApiProperty()
+  rooms: number;
+
+  @IsOptional()
   createdAt: Date;
 }

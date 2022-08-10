@@ -121,6 +121,11 @@ export class PostsService {
           price: { $lt: query.pricelt },
         }
       : {};
+    const isFurnished = query.isFurnished
+      ? {
+          isFurnished: query.isFurnished,
+        }
+      : {};
 
     // pagination
     const resultPerPage = Number(process.env.POSTS_PER_PAGE);
@@ -140,6 +145,7 @@ export class PostsService {
         ...landType,
         ...areaUnit,
         ...area,
+        ...isFurnished,
       })
       .limit(resultPerPage)
       .skip(skip)

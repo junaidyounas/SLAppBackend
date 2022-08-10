@@ -143,6 +143,14 @@ export class PostsService {
           kitchens: { $gte: query.kitchens },
         }
       : {};
+    const make = query.make
+      ? {
+          make: {
+            $regex: query.make,
+            $options: 'i',
+          },
+        }
+      : {};
 
     // pagination
     const resultPerPage = Number(process.env.POSTS_PER_PAGE);
@@ -166,6 +174,7 @@ export class PostsService {
         ...rooms,
         ...bathrooms,
         ...kitchens,
+        ...make,
       })
       .limit(resultPerPage)
       .skip(skip)

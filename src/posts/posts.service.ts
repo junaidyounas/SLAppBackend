@@ -132,6 +132,18 @@ export class PostsService {
         }
       : {};
 
+    const bathrooms = query.bathrooms
+      ? {
+          bathrooms: { $gte: query.bathrooms },
+        }
+      : {};
+
+    const kitchens = query.kitchens
+      ? {
+          kitchens: { $gte: query.kitchens },
+        }
+      : {};
+
     // pagination
     const resultPerPage = Number(process.env.POSTS_PER_PAGE);
     const currentPage = Number(query.page) || 1;
@@ -152,6 +164,8 @@ export class PostsService {
         ...area,
         ...isFurnished,
         ...rooms,
+        ...bathrooms,
+        ...kitchens,
       })
       .limit(resultPerPage)
       .skip(skip)

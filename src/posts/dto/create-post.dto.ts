@@ -108,5 +108,15 @@ export class CreatePostDto {
   rooms: number;
 
   @IsOptional()
+  @IsNumber()
+  @ApiProperty()
+  bathrooms: number;
+
+  @IsOptional()
+  @IsNumber()
+  @ApiProperty()
+  kitchens: number;
+
+  @IsOptional()
   createdAt: Date;
 }

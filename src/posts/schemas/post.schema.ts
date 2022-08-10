@@ -81,6 +81,12 @@ export class Post {
   @Prop()
   rooms: number;
 
+  @Prop()
+  bathrooms: number;
+
+  @Prop()
+  kitchens: number;
+
   @Prop({ default: new Date() })
   createdAt: Date;
 }

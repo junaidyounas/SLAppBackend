@@ -1,6 +1,7 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import {
   IsArray,
+  IsBoolean,
   IsEmpty,
   IsNotEmpty,
   IsNumber,
@@ -84,6 +85,11 @@ export class UpdatePostDto extends PartialType(CreatePostDto) {
   @IsOptional()
   @IsString()
   @ApiProperty()
+  deviceType: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty()
   areaUnit: string;
 
   @IsOptional()
@@ -92,9 +98,9 @@ export class UpdatePostDto extends PartialType(CreatePostDto) {
   area: number;
 
   @IsOptional()
-  @IsString()
+  @IsBoolean()
   @ApiProperty()
-  deviceType: string;
+  isFurnished: boolean;
 
   @IsOptional()
   createdAt: Date;

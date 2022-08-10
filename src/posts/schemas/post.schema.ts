@@ -63,6 +63,11 @@ export class Post {
   @Prop()
   type: string;
 
+  
+
+  @Prop()
+  deviceType: string;
+
   @Prop()
   landType: string;
 
@@ -73,7 +78,7 @@ export class Post {
   area: number;
 
   @Prop()
-  deviceType: string;
+  isFurnished: boolean;
 
   @Prop({ default: new Date() })
   createdAt: Date;

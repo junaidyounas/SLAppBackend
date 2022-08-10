@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsArray,
+  IsBoolean,
   IsEmail,
   IsEmpty,
   IsNotEmpty,
@@ -79,6 +80,11 @@ export class CreatePostDto {
   @IsOptional()
   @IsString()
   @ApiProperty()
+  deviceType: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty()
   landType: string;
 
   @IsOptional()
@@ -92,9 +98,9 @@ export class CreatePostDto {
   area: number;
 
   @IsOptional()
-  @IsString()
+  @IsBoolean()
   @ApiProperty()
-  deviceType: string;
+  isFurnished: boolean;
 
   @IsOptional()
   createdAt: Date;

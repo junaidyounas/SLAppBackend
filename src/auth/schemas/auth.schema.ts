@@ -1,7 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-
 @Schema()
 export class User extends Document {
   @Prop()
@@ -21,6 +20,9 @@ export class User extends Document {
 
   @Prop({ type: Date, select: false })
   resetOtpCreatedAt: string;
+
+  @Prop()
+  favorites: Map<string, boolean>;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

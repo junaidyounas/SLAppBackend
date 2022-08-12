@@ -16,6 +16,7 @@ import { SignUpUserDto } from './dtos/signup-user.dto';
 import { User } from './schemas/auth.schema';
 import { VerifyOtpDto } from './dtos/verify-otp.dto';
 import { getJwtToken } from '../utils/getJWTToken';
+import { UpdateFavDto } from './dtos/updateFav.dto';
 
 @Injectable()
 export class AuthService {
@@ -187,5 +188,22 @@ export class AuthService {
         }
       }
     }
+  }
+
+  async postFav(updateFavDto: UpdateFavDto, user): Promise<any> {
+    console.log('user', user);
+    const { postId, isFav } = updateFavDto;
+    const newV = 'favorites.' + postId;
+    const data = await this.userModal.findOneAndUpdate(
+      { id: user._id },
+      {
+        $set: { [newV]: isFav },
+      },
+    );
+    // https://stackoverflow.com/questions/55878704/mongo-db-design-for-user-favourites-pros-and-cons
+    if (!data) {
+      return 'There is some error';
+    }
+    return data;
   }
 }

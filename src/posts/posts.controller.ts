@@ -24,11 +24,16 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 
 import { Query as ExpressQuery } from 'express-serve-static-core';
+import { AuthService } from 'src/auth/auth.service';
+import { UpdateFavDto } from 'src/auth/dtos/updateFav.dto';
 
 @ApiTags('Posts')
 @Controller('posts')
 export class PostsController {
-  constructor(private readonly postsService: PostsService) {}
+  constructor(
+    private readonly postsService: PostsService,
+    public readonly userService: AuthService,
+  ) {}
 
   // Create Post ===> /posts
   @UseGuards(AuthGuard())
@@ -96,5 +101,17 @@ export class PostsController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.postsService.remove(id);
+  }
+
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth('jwt')
+  @Post('/favorites')
+  @ApiBody({ type: UpdateFavDto })
+  postFav(
+    @Body()
+    updateFavDto: UpdateFavDto,
+    @Req() req,
+  ) {
+    return this.userService.postFav(updateFavDto, req.user);
   }
 }

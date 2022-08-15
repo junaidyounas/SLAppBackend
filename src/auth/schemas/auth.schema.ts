@@ -22,7 +22,7 @@ export class User extends Document {
   resetOtpCreatedAt: string;
 
   @Prop()
-  favorites: Map<string, boolean>;
+  favourites: Map<string, boolean>;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

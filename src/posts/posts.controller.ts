@@ -103,9 +103,17 @@ export class PostsController {
     return this.postsService.remove(id);
   }
 
+  @Get('/favourite/all')
   @UseGuards(AuthGuard())
   @ApiBearerAuth('jwt')
-  @Post('/favorites')
+  async getAllFavPosts(@Req() req) {
+    const ids = await this.userService.getFavouritePostsIds(req.user);
+    return this.postsService.allFavPosts(ids);
+  }
+
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth('jwt')
+  @Post('/favourites')
   @ApiBody({ type: UpdateFavDto })
   postFav(
     @Body()

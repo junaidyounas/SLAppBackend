@@ -7,7 +7,7 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcryptjs';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { LoggedInUser } from '../types/LoggedInUser';
 import { CreateOtpDto } from './dtos/create-otp.dto';
 import { LoginUserDto } from './dtos/login-user.dto';
@@ -190,10 +190,11 @@ export class AuthService {
     }
   }
 
+  // add post to favorite
   async postFav(updateFavDto: UpdateFavDto, user): Promise<any> {
     console.log('user', user);
     const { postId, isFav } = updateFavDto;
-    const newV = 'favorites.' + postId;
+    const newV = 'favourites.' + postId;
     const data = await this.userModal.findOneAndUpdate(
       { id: user._id },
       {
@@ -205,5 +206,16 @@ export class AuthService {
       return 'There is some error';
     }
     return data;
+  }
+
+  async getFavouritePostsIds(user): Promise<any> {
+    const id = new mongoose.Types.ObjectId(user._id);
+    const userData = await this.userModal.findOne(id, {
+      favourites: true,
+    });
+    const favouriteIds = userData.favourites;
+    const keys = [...favouriteIds.keys()];
+
+    return keys;
   }
 }

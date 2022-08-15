@@ -215,4 +215,8 @@ export class PostsService {
       .populate('category', ['title']);
     return post;
   }
+
+  async allFavPosts(ids: string[]): Promise<any> {
+    return await this.postModel.find({ _id: { $in: ids } });
+  }
 }

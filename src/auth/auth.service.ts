@@ -68,6 +68,7 @@ export class AuthService {
         name: user.name,
         email: user.email,
         phone: user.phone,
+        favourites: user.favourites as any,
       };
     } catch (err) {
       if (err.code === 500) {
@@ -167,6 +168,7 @@ export class AuthService {
         name: userFind.name,
         email: userFind.email,
         phone: userFind.phone,
+        favourites: userFind.favourites as any,
       };
     } else {
       try {
@@ -180,7 +182,8 @@ export class AuthService {
           token,
           name: user.name,
           email: user.email,
-          phone: null,
+          phone: undefined as any,
+          favourites: userFind.favourites as any,
         };
       } catch (error) {
         if (error.code === 11000) {

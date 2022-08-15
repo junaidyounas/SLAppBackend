@@ -216,7 +216,7 @@ export class PostsService {
     return post;
   }
 
-  async allFavPosts(ids: string[]): Promise<any> {
+  async allFavPosts(ids: string[]): Promise<Post[]> {
     return await this.postModel.find({ _id: { $in: ids } });
   }
 }

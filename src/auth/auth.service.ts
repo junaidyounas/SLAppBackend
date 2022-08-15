@@ -229,4 +229,10 @@ export class AuthService {
 
     return keys;
   }
+
+  async getAllFavIds(user): Promise<any> {
+    const id = new mongoose.Types.ObjectId(user._id);
+    const userData = await this.userModal.findOne(id);
+    return userData.favourites;
+  }
 }

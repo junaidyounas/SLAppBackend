@@ -1,15 +1,19 @@
 import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
-import { ApiBody, ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiCreatedResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { LoggedInUser } from 'src/types/LoggedInUser';
 import { AuthService } from './auth.service';
 import { CreateOtpDto } from './dtos/create-otp.dto';
 import { LoginUserDto } from './dtos/login-user.dto';
-import { SignUpUserDto } from './dtos/signup-user.dto';
-import { User } from './schemas/auth.schema';
 import { ResetPassDto } from './dtos/reset-password.dto';
+import { SignUpUserDto } from './dtos/signup-user.dto';
 import { VerifyOtpDto } from './dtos/verify-otp.dto';
-import { AuthGuard } from '@nestjs/passport';
-
+import { User } from './schemas/auth.schema';
 @ApiTags('Authentication')
 @Controller('auth')
 export class AuthController {
@@ -81,5 +85,12 @@ export class AuthController {
     signupDto: SignUpUserDto,
   ): Promise<any> {
     return this.authService.loginWithGoogleCred(signupDto);
+  }
+
+  @Post('/allFavIds')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth('jwt')
+  async getAllFavIds(@Req() req): Promise<any> {
+    return this.authService.getAllFavIds(req.user);
   }
 }

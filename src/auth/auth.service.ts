@@ -192,9 +192,17 @@ export class AuthService {
 
   // add post to favorite
   async postFav(updateFavDto: UpdateFavDto, user): Promise<any> {
-    console.log('user', user);
     const { postId, isFav } = updateFavDto;
     const newV = 'favourites.' + postId;
+    if (isFav == false) {
+      const data = await this.userModal.findOneAndUpdate(
+        { id: user._id },
+        {
+          $unset: { [newV]: isFav },
+        },
+      );
+      return data;
+    }
     const data = await this.userModal.findOneAndUpdate(
       { id: user._id },
       {

@@ -103,7 +103,7 @@ export class PostsController {
     return this.postsService.remove(id);
   }
 
-  @Get('/favourite/all')
+  @Get('/favourites/all')
   @UseGuards(AuthGuard())
   @ApiBearerAuth('jwt')
   async getAllFavPosts(@Req() req) {
